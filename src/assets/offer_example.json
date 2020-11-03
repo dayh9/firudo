@@ -1,0 +1,22 @@
+{
+    "Tytuł ogłoszenia": "Mieszkanie dla ciebie",
+    "Cena": 300000,
+    "Powierzchnia": 30,
+    "Cena za m2": 10000,
+    "Liczba pokoi": 3,
+    "Rynek": "pierwotny",
+    "Zdjęcia": null,
+    "Miejscowość": "Wrocław",
+    "Dzielnica": "Tarnogaj",
+    "Ulica": "Klimasa",
+    "Opis": "loremn asd asedwa asd qawd awd awds das dawd a",
+    "Rodzaj zabudowy": "blok",
+    "Piętro": 2,
+    "Liczba pięter": 5,
+    "Materiał bodynku": "pustak",
+    "Okna": "drewniane",
+    "Ogrzewanie": "gazowe",
+    "Rok budowy": 1980,
+    "Stan wykończenia": "do zamieszkania",
+    "Czynsz": 300
+}
