@@ -1,46 +1,35 @@
 <template>
-  <!-- <div class="home"> -->
-  <v-card class="overflow-hidden">
-    <v-app-bar
-      tile
-      dense
-      absolute
-      color="info"
-      elevate-on-scroll
-      scroll-target="#scrolling-techniques-7"
-    >
-      <v-icon color="secondary" left>mdi-home</v-icon>
+  <div class="offer">
+    <v-card class="" height="100%">
+      <v-app-bar
+        tile
+        dense
+        absolute
+        color="info"
+        elevate-on-scroll
+        scroll-target="#scrolling-techniques-7"
+      >
+        <v-icon color="secondary" left>mdi-home</v-icon>
 
-      <v-toolbar-title class="secondary--text">{{
-        example_model["title"]
-      }}</v-toolbar-title>
+        <v-toolbar-title class="secondary--text">{{
+          example_model["title"]
+        }}</v-toolbar-title>
 
-      <v-spacer></v-spacer>
-      <h3 class="secondary--text">
-        {{ Object.values(example_model.price).toLocaleString("pl-PL") }} zł
-      </h3>
-    </v-app-bar>
+        <v-spacer></v-spacer>
+        <h3 class="secondary--text">
+          {{ Object.values(example_model.price).toLocaleString("pl-PL") }} zł
+        </h3>
+      </v-app-bar>
 
-    <v-sheet
-      id="scrolling-techniques-7"
-      class="overflow-y-auto"
-      max-height="600"
-    >
-      <v-spacer style="height: 50px"></v-spacer>
-      <v-btn @click="addItem" elevation="2">CLICK ME</v-btn>
-      <v-card flat>
-        <v-card-title>Szczegóły</v-card-title>
-      </v-card>
-      <v-container class="lighten-5 mb-6">
-        <v-card flat class="column-wrapper">
-          <v-card flat v-for="s in example_model.details" :key="s">
-            {{ Object.keys(s)[0] }}: {{ Object.values(s)[0] }}
-          </v-card>
-        </v-card>
-      </v-container>
-      <v-container style="height: 1500px;"> </v-container>
-    </v-sheet>
-    <!-- 
+      <v-sheet id="scrolling-techniques-7" class="overflow-visible">
+        <v-spacer style="height: 35px"></v-spacer>
+        <Gallery :photos="this.example_model.photos.Zdjęcia" />
+        <Details :details="this.example_model.details" />
+        <!-- <v-btn @click="addItem" elevation="2">CLICK ME</v-btn> -->
+        <Description :description="this.example_model.description" />
+        <v-container style="height: 1000px"> </v-container>
+      </v-sheet>
+      <!-- 
 
     <p>
       Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores iure
@@ -112,31 +101,52 @@
       praesentium sunt voluptatem eos aliquam, excepturi id? Accusantium?
     </p>
   </div> -->
-  </v-card>
+    </v-card>
+  </div>
 </template>
 
 <script>
 import { db } from "../db.js";
+import Gallery from "../components/Gallery.vue";
+import Details from "../components/Details.vue";
+import Description from "../components/Description.vue";
+
 export default {
   name: "Offer",
+  components: {
+    Gallery,
+    Details,
+    Description,
+  },
   data() {
     return {
-      users: [],
       example_model: {
         title: "Mieszkanie dla ciebie",
         price: { Cena: 300000 },
         address: {
           locality: { Miejscowość: "Wrocław" },
           district: { Dzielnica: "Tarnogaj" },
-          street: { Ulica: "Klimasa" }
+          street: { Ulica: "Klimasa" },
         },
-        description: { Opis: "loremn asd asedwa asd qawd awd awds das dawd a" },
+        description: {
+          Opis:
+            "aaaaaaa\nbbbsssssssss\n\n\n\tsssssssssssss\n ssssssssss ssssssssssssss sssssssssssss ssssssssssssssss sssssssssssssssss ssssssssssssss sssssssssss ss s ssssssssssss sssssss sssssssss zzs\nssssssss sssssssssssss ssssssssssss sssssssssssssssssss aaa",
+        },
         photos: {
           Zdjęcia: [
-            "../assets/garage.jpg",
-            "../assets/garden.jpg",
-            "../assets/house.jpg"
-          ]
+            "garden.jpg",
+            "garage.jpg",
+            "house.jpg",
+            "m1.jpg",
+            "m2.jpg",
+            "m3.jpg",
+            "m4.jpg",
+            "m5.jpg",
+            "m6.jpg",
+            "m7.jpg",
+            "m8.jpg",
+            "m9.jpg",
+          ],
         },
         details: {
           size: { Powierzchnia: 30 },
@@ -146,29 +156,23 @@ export default {
           floor: { Piętro: 2 },
           year: { "Rok budowy": 1980 },
           state: { "Stan wykończenia": "do zamieszkania" },
-          rent: { Czynsz: 300 }
-        }
+          rent: { Czynsz: 300 },
+        },
       },
-      colors: [
-        "green",
-        "secondary",
-        "yellow darken-4",
-        "red lighten-2",
-        "orange darken-1"
-      ],
-      cycle: false,
-      slides: ["First", "Second", "Third", "Fourth", "Fifth"]
     };
   },
   methods: {
     async addItem() {
       db.ref("users").push(this.example_model);
       alert("aaa");
-    }
+    },
+    changePhoto(n) {
+      this.actualPhoto = n % this.example_model.photos.Zdjęcia.length;
+    },
   },
   firebase: {
-    users: db.ref()
-  }
+    users: db.ref(),
+  },
 };
 </script>
 

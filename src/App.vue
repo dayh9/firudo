@@ -11,8 +11,7 @@
     </v-system-bar> -->
 
     <v-app-bar app clipped-right clipped-left flat height="50" color="primary">
-      <v-spacer></v-spacer>
-
+      <v-toolbar-title class="secondary--text">FIRUDO</v-toolbar-title>
       <!-- <v-responsive max-width="156">
         <v-text-field
           dense
