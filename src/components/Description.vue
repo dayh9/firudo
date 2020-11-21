@@ -1,14 +1,13 @@
 <template>
-  <v-container>
-    <v-card flat tile width="100%" height="300" class="pa-0" color="red">
+  <v-container class="my-1">
+    <v-card flat tile width="100%" min-height="100" class="pa-0 my-1" color="">
       <v-card-title class="px-0 pt-0 text-h5">{{
         Object.keys(description)[0]
       }}</v-card-title>
       <v-card-text class="pa-0 description-text">
-        {{ description["Opis"] }}
+        {{ "\n" }}{{ description["Opis"] }}
       </v-card-text>
-      ac</v-card
-    >
+    </v-card>
   </v-container>
 </template>
 
@@ -23,8 +22,9 @@ export default {
 
 <style>
 .desc-container {
-  color: darkblue !important;
-  background-color: darkcyan !important;
+  border-top: 1px solid brown !important;
+  border-bottom: 1px solid brown !important;
+  background-color: #c8e6c9 !important;
 }
 .description-text {
   white-space: pre-wrap !important;

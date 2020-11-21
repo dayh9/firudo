@@ -11,7 +11,7 @@
     </v-system-bar> -->
 
     <v-app-bar app clipped-right clipped-left flat height="50" color="primary">
-      <v-toolbar-title class="secondary--text">FIRUDO</v-toolbar-title>
+      <v-toolbar-title class="click--text px-16">FIRUDO</v-toolbar-title>
       <!-- <v-responsive max-width="156">
         <v-text-field
           dense
@@ -73,6 +73,6 @@
 <script>
 export default {
   name: "App",
-  data: () => ({ drawer: null })
+  data: () => ({ drawer: null }),
 };
 </script>

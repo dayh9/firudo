@@ -33,7 +33,7 @@
         <v-btn @click="addItem" color="click" class="ma-5" dark elevation="2"
           >CLICK ME</v-btn
         >
-        <v-container style="height: 1500px"> </v-container>
+        <v-container style="height: 1000px"> </v-container>
       </v-sheet>
       <!-- 
 
@@ -137,23 +137,22 @@ export default {
         description: {
           Opis:
             "Sprzedam mieszkanie\nduże i umeblowane mieszkanie w centrum Wrocławia\nOkazja jedyna w swym rodzaju" +
-            "\npolecam badzo" +
-            "Est dolor numquam porro aliquam labore quaerat. Labore voluptatem consectetur numquam dolore dolorem sed. Modi quaerat neque amet. Dolore labore aliquam eius magnam. Consectetur modi sed dolorem eius. Consectetur voluptatem sed sed quisquam etincidunt ipsum dolor. Quaerat modi velit eius neque. Consectetur consectetur sed amet velit dolore sit.\n\nQuiquia ut quiquia porro est. Neque ipsum dolor est adipisci labore dolorem. Neque quisquam quaerat modi quiquia modi amet. Modi eius quisquam non consectetur etincidunt aliquam. Voluptatem sit dolore est sed. Modi quiquia est numquam est voluptatem velit dolorem. Etincidunt sed adipisci porro. Modi labore amet magnam eius.\n\nIpsum ut etincidunt ut dolorem. Neque dolorem sed neque aliquam dolore sit tempora. Modi quiquia velit amet amet numquam ut. Quaerat est quaerat quisquam. Eius dolorem amet sit ut adipisci sit voluptatem. Quaerat dolore numquam quisquam eius consectetur. Consectetur labore eius dolorem labore. Etincidunt adipisci est voluptatem. Numquam eius neque labore porro.",
+            "\npolecam badzo",
         },
         photos: {
           Zdjęcia: [
-            "10.jpg",
-            "11.jpg",
-            "12.jpg",
-            "1.jpg",
-            "2.jpg",
-            "3.jpg",
-            "4.jpg",
-            "5.jpg",
-            "6.jpg",
-            "7.jpg",
-            "8.jpg",
-            "9.jpg",
+            "garden.jpg",
+            "garage.jpg",
+            "house.jpg",
+            "m1.jpg",
+            "m2.jpg",
+            "m3.jpg",
+            "m4.jpg",
+            "m5.jpg",
+            "m6.jpg",
+            "m7.jpg",
+            "m8.jpg",
+            "m9.jpg",
           ],
         },
         details: {
@@ -180,6 +179,7 @@ export default {
   },
   firebase: {
     users: db.ref(),
+    offers: db.ref(),
   },
 };
 </script>

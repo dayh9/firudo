@@ -1,12 +1,12 @@
 <template>
-  <v-container class="test">
+  <v-container class="mb-1">
     <v-row>
       <v-col class="big-picture-container" cols="8">
         <v-img
           contain
           height="400"
           :src="require(`@/assets/${photos[bigPhotoId]}`)"
-          class="info"
+          class="secondary"
           aspect-ratio="1"
         >
           <template v-slot:placeholder>

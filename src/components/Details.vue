@@ -1,9 +1,9 @@
 <template>
-  <v-container class="pa-0">
+  <v-container class="pa-0 my-1">
     <v-card flat height="40">
       <v-card-title class="pl-3 pt-0 text-h5">Szczegóły</v-card-title>
     </v-card>
-    <v-container class="lighten-5 mb-5">
+    <v-container class="lighten-5">
       <v-card flat class="column-wrapper">
         <v-card flat v-for="(s, id) in details" :key="id">
           <v-card-text class="ma-0 pa-0 text-body-1">
