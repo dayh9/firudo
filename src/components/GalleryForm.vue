@@ -1,29 +1,28 @@
 <template>
-  <v-card
-    flat
-    tile
-    color=""
-    height="400"
-    width="100%"
-    class="pl-3 pr-1 pt-5 pb-2"
-  >
+  <v-card flat tile color="" height="50vh" width="100%" class="pl-3 pr-1 py-2">
     <v-card flat tile color="" width="100%" height="100%" class="d-flex">
       <v-card flat tile color="" width="65%" height="100%" class="py-1">
-        <v-img
-          contain
-          height="100%"
-          :src="require(`@/assets/1.jpg`)"
-          class="secondary"
-          aspect-ratio="1"
-        >
-          <template v-slot:placeholder>
-            <v-row class="fill-height ma-0" align="center" justify="center">
-              <v-progress-circular
-                indeterminate
-                color="grey lighten-5"
-              ></v-progress-circular>
-            </v-row>
-          </template> </v-img
+        <label for="imgInputBig" class="pointer">
+          <v-img
+            contain
+            height="100%"
+            :src="
+              photos[0]
+                ? require(`@/assets/${photos[0]}`)
+                : require(`@/assets/add--v1.png`)
+            "
+            :lazy-src="require(`@/assets/add--v1.png`)"
+            class="secondary"
+            aspect-ratio="1"
+          >
+            <input
+              id="imgInputBig"
+              type="file"
+              name="photo"
+              accept="image/*"
+              style="display: none"
+              @change="onFileSelected($event, 2)"
+            /> </v-img></label
       ></v-card>
       <v-card
         flat
@@ -34,111 +33,74 @@
         class="px-1 d-flex flex-wrap align-content-start"
       >
         <v-card
-          v-for="n in 12"
-          :key="n"
+          v-for="(n, index) in 12"
+          :key="index"
           flat
           tile
           width="33.3333%"
           height="25%"
           class="pa-1"
         >
-          <v-img
-            max-width="100%"
-            max-height="100%"
-            :src="require(`@/assets/${n}.jpg`)"
-            class="ma-0 pa-0"
-            :gradient="
-              isPhotoActive(n)
-                ? 'to bottom, rgba(76,175,80,.1), rgba(76,175,80,.7)'
-                : ''
-            "
-            aspect-ratio="1"
-            @click="setBigPhoto(n)"
-          >
-            <template v-slot:placeholder>
-              <v-row class="fill-height ma-0" align="center" justify="center">
-                <v-progress-circular
-                  indeterminate
-                  color="grey lighten-5"
-                ></v-progress-circular>
-              </v-row>
-            </template> </v-img
+          <label for="imgInput" class="pointer">
+            <v-img
+              width="100%"
+              height="100%"
+              :class="photos[index] ? null : `secondary`"
+              :contain="photos[index] ? false : true"
+              :src="
+                photos[index]
+                  ? require(`@/assets/${photos[index]}`)
+                  : require(`@/assets/add--v1.png`)
+              "
+              class="ma-0 pa-0"
+              :gradient="
+                isPhotoActive(index)
+                  ? 'to bottom, rgba(76,175,80,.1), rgba(76,175,80,.7)'
+                  : ''
+              "
+              aspect-ratio="1"
+              @click="setBigPhoto(index)"
+            >
+              <template v-slot:placeholder>
+                <v-row class="fill-height ma-0" align="center" justify="center">
+                  <v-progress-circular
+                    indeterminate
+                    color="grey lighten-5"
+                  ></v-progress-circular>
+                </v-row>
+              </template>
+              <input
+                id="imgInput"
+                type="file"
+                name="photo"
+                accept="image/*"
+                style="display: none"
+                @change="onFileSelected($event, index)"
+              /> </v-img></label
         ></v-card>
       </v-card>
     </v-card>
   </v-card>
-  <!-- <v-container class="mb-1">
-    <v-row>
-      <v-col class="big-picture-container" cols="8">
-        <v-img
-          contain
-          height="400"
-          :src="require(`@/assets/${photos[bigPhotoId]}`)"
-          class="secondary"
-          aspect-ratio="1"
-        >
-          <template v-slot:placeholder>
-            <v-row class="fill-height ma-0" align="center" justify="center">
-              <v-progress-circular
-                indeterminate
-                color="grey lighten-5"
-              ></v-progress-circular>
-            </v-row>
-          </template>
-        </v-img>
-      </v-col>
-      <v-col max-height="400px" cols="4">
-        <v-container class="pa-0">
-          <v-row no-gutters>
-            <v-col
-              class="d-flex justify-center"
-              v-for="(photo, id) in photos"
-              :key="id"
-              cols="4"
-            >
-              <v-img
-                max-width="97%"
-                max-height="97%"
-                :src="require(`@/assets/${photo}`)"
-                class="ma-0"
-                :gradient="
-                  isPhotoActive(id)
-                    ? 'to bottom, rgba(76,175,80,.1), rgba(76,175,80,.7)'
-                    : ''
-                "
-                aspect-ratio="1"
-                @click="setBigPhoto(id)"
-              >
-                <template v-slot:placeholder>
-                  <v-row
-                    class="fill-height ma-0"
-                    align="center"
-                    justify="center"
-                  >
-                    <v-progress-circular
-                      indeterminate
-                      color="grey lighten-5"
-                    ></v-progress-circular>
-                  </v-row>
-                </template>
-              </v-img>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-col>
-    </v-row>
-  </v-container> -->
 </template>
 
 <script>
 export default {
-  name: "Gallery",
+  name: "GalleryForm",
   props: {
     photos: Array,
   },
   data() {
     return {
       bigPhotoId: 0,
+      photosHere: [
+        // "16.jpg",
+        // "9.jpg",
+        // null,
+        // "20.jpg",
+        // "10.jpg",
+        // "2.jpg",
+        // "15.jpg",
+      ],
     };
   },
   methods: {
@@ -153,6 +115,18 @@ export default {
         return true;
       }
       return false;
+    },
+    onFileSelected(event, index) {
+      console.log(index);
+      // let newa = [];
+      // newa[k] = event.target.files[0].name
+      // console.log(k);
+      // this.newPhotos = this.photosHere;
+      // this.newPhotos[k] = event.target.files[0].name;
+      // this.set(this.photosHere, 2, event.target.files[0].name);
+      // this.photosHere.splice(7, 1, event.target.files[0].name);
+      // this.photosHere = this.newPhotos;
+      this.photos.push(event.target.files[0].name);
     },
   },
   computed: {},
@@ -182,5 +156,8 @@ export default {
 .test {
   /* background-color: brown; */
   height: 400;
+}
+.pointer {
+  cursor: pointer;
 }
 </style>

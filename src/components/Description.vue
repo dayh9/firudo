@@ -1,11 +1,9 @@
 <template>
-  <v-container class="my-1">
+  <v-container class="my-0">
     <v-card flat tile width="100%" min-height="100" class="pa-0 my-1" color="">
-      <v-card-title class="px-0 pt-0 text-h5">{{
-        Object.keys(description)[0]
-      }}</v-card-title>
+      <v-card-title class="px-0 pt-0 text-h5">{{ "Opis" }}</v-card-title>
       <v-card-text class="pa-0 description-text">
-        {{ "\n" }}{{ description["Opis"] }}
+        {{ "\n" }}{{ description }}
       </v-card-text>
     </v-card>
   </v-container>
@@ -15,7 +13,7 @@
 export default {
   name: "Description",
   props: {
-    description: Object,
+    description: String,
   },
 };
 </script>

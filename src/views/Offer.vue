@@ -3,110 +3,46 @@
     <v-card class="" height="100%">
       <v-app-bar
         tile
-        dense
         absolute
         color="secondary"
         elevate-on-scroll
         scroll-target="#scrolling-techniques-7"
       >
-        <v-icon color="click" left>mdi-home</v-icon>
+        <!-- <v-icon color="click" left>mdi-home</v-icon> -->
 
-        <v-toolbar-title class="accent--text">{{
-          example_model["title"]
-        }}</v-toolbar-title>
+        <v-toolbar-title class="accent--text pa-0"
+          >{{ offer.title }}
+          <div
+            class="subheading font-weight-normal pa-0 text-subtitle-1 success--text align-end"
+          >
+            <v-icon x-small color="accent" class="mb-1 mx-0" right
+              >mdi-map-marker</v-icon
+            >
+            {{ offer.localization.locality }},
+            {{ offer.localization.district }}, {{ offer.localization.street }}
+          </div>
+        </v-toolbar-title>
 
         <v-spacer></v-spacer>
-        <h3 class="secondary--text">
-          {{ Object.values(example_model.price).toLocaleString("pl-PL") }} zł
+        <h3 class="click--text">
+          {{ offer.price.toLocaleString("pl-PL") }} zł
         </h3>
       </v-app-bar>
 
       <v-sheet id="scrolling-techniques-7" class="overflow-visible">
-        <v-spacer style="height: 35px"></v-spacer>
-        <Gallery :photos="this.example_model.photos.Zdjęcia" />
-        <v-divider class="mx-3 my-1 secondary"></v-divider>
-        <Details :details="this.example_model.details" />
-        <v-divider class="mx-3 my-1 secondary"></v-divider>
+        <v-spacer style="height: 64px"></v-spacer>
+        <Gallery :photos="this.offer.photos" />
+        <v-divider class="mx-3 secondary"></v-divider>
+        <Details :details="this.offer.details" />
+        <v-divider class="mx-3 secondary"></v-divider>
 
-        <Description :description="this.example_model.description" />
-        <v-divider class="mx-3 my-1 secondary"></v-divider>
-        <v-btn @click="addItem" color="click" class="ma-5" dark elevation="2"
+        <Description :description="this.offer.description" />
+        <v-divider class="mx-3 secondary"></v-divider>
+        <!-- <v-btn @click="addItem" color="click" class="ma-5" dark elevation="2"
           >CLICK ME</v-btn
-        >
-        <v-container style="height: 1500px"> </v-container>
+        > -->
+        <v-container style="height: 300px"> </v-container>
       </v-sheet>
-      <!-- 
-
-    <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores iure
-      ipsam ut odit et provident veritatis dicta nisi error consectetur. Ab
-      iusto quod enim sunt consequatur ratione adipisci voluptatem laboriosam
-      facere maiores perspiciatis id reiciendis quia quis quibusdam ut saepe
-      architecto et molestiae dolorem minus, tempora soluta eveniet omnis.
-      Inventore cumque voluptatum, doloremque facere distinctio minima dolorum.
-      Commodi voluptatibus laudantium amet eaque saepe impedit consequuntur
-      natus officia esse sit possimus nobis ipsa, blanditiis reiciendis ex quam
-      necessitatibus ad assumenda quasi voluptatum? Adipisci voluptate esse et
-      mollitia saepe temporibus error laborum cupiditate? Aliquid, ipsum in
-      numquam illo quis expedita accusamus! Vitae, dignissimos sapiente
-      consectetur assumenda eligendi debitis quae, maiores non doloribus culpa
-      eos nihil ad, labore a quibusdam repellat omnis nemo officia recusandae
-      sint dolorem totam ab consequuntur autem? Rem commodi sit tempora velit
-      molestiae molestias accusamus aut voluptatem impedit quidem atque omnis
-      quae voluptatum sapiente quam, libero placeat! Blanditiis fugit neque, ex
-      eos aperiam officia recusandae quia, soluta beatae ipsum voluptates
-      praesentium? Laboriosam, consectetur ex quisquam earum nulla eaque
-      reiciendis illo perferendis culpa ullam dolorum sequi, error commodi
-      eveniet laborum. Asperiores quis nesciunt voluptatem aut laboriosam eius
-      perspiciatis odit unde nihil consequuntur. Est odio officia vel ullam
-      nobis itaque veniam, nulla cumque corporis sit repellendus labore
-      doloribus laboriosam quis, adipisci nisi repudiandae architecto magni,
-      accusantium et beatae. Unde perspiciatis, exercitationem nostrum veritatis
-      quia fugiat provident ea rem nam temporibus voluptates inventore beatae
-      deserunt accusamus. Similique, dolorum nisi dolores quae ipsum architecto
-      repellendus culpa tempora, cumque voluptate, in ad aut molestiae deserunt
-      obcaecati laborum? Molestias itaque, consectetur voluptate et nihil
-      aliquid laborum aperiam dolorem ducimus debitis, dolore neque sit!
-      Sapiente libero fuga fugit eius repellendus ut velit architecto
-      consequuntur possimus quibusdam neque placeat numquam, rem veritatis
-      laborum odit nisi illo dolorem quae id sequi nemo perferendis! Tempore ab
-      libero necessitatibus odit sit labore dicta incidunt sunt, atque porro
-      ipsa possimus cum modi nesciunt autem ut velit esse eos dolore animi
-      adipisci et repellendus at eum! Alias veritatis nihil sint id eveniet
-      tempora officiis officia dolor. Ullam in quasi deserunt. Incidunt
-      aspernatur, reiciendis porro delectus quo harum fuga nam iure accusamus
-      eius possimus dolorem distinctio blanditiis sed. Et totam commodi
-      necessitatibus iure, doloremque quo dignissimos, qui recusandae facere
-      distinctio ullam! Qui optio eos delectus sed beatae in consectetur vel
-      suscipit illum saepe necessitatibus velit nemo autem enim, facilis soluta
-      assumenda vero. Ipsam nobis laudantium impedit nam tempore ipsum quo
-      eveniet corporis iusto ratione perspiciatis harum autem atque tempora
-      numquam ad, quasi aspernatur iste voluptates dolorum consequatur?
-      Architecto incidunt, quas iste, beatae eos odit sit nisi alias enim
-      tempore ab dolor error perferendis earum optio ullam id hic tenetur atque.
-      Molestias amet voluptas labore maiores consequatur rerum a veritatis,
-      commodi libero id soluta? Quasi necessitatibus quisquam cumque accusantium
-      asperiores exercitationem quam blanditiis deserunt similique aliquid.
-      Deserunt accusantium, necessitatibus vel distinctio nemo dolor maxime non
-      ea, repellendus cupiditate iste soluta alias facere possimus ducimus,
-      cumque ullam dignissimos? Fuga ipsum numquam deleniti repellendus
-      asperiores consectetur soluta molestias praesentium sunt voluptatem eos
-      aliquam, excepturi id? Accusantium?Deserunt accusantium, necessitatibus
-      vel distinctio nemo dolor maxime non ea, repellendus cupiditate iste
-      soluta alias facere possimus ducimus, cumque ullam dignissimos? Fuga ipsum
-      numquam deleniti repellendus asperiores consectetur soluta molestias
-      praesentium sunt voluptatem eos aliquam, excepturi id?
-      Accusantium?Deserunt accusantium, necessitatibus vel distinctio nemo dolor
-      maxime non ea, repellendus cupiditate iste soluta alias facere possimus
-      ducimus, cumque ullam dignissimos? Fuga ipsum numquam deleniti repellendus
-      asperiores consectetur soluta molestias praesentium sunt voluptatem eos
-      aliquam, excepturi id? Accusantium?Deserunt accusantium, necessitatibus
-      vel distinctio nemo dolor maxime non ea, repellendus cupiditate iste
-      soluta alias facere possimus ducimus, cumque ullam dignissimos? Fuga ipsum
-      numquam deleniti repellendus asperiores consectetur soluta molestias
-      praesentium sunt voluptatem eos aliquam, excepturi id? Accusantium?
-    </p>
-  </div> -->
     </v-card>
   </div>
 </template>
@@ -126,6 +62,44 @@ export default {
   },
   data() {
     return {
+      offer: {
+        id: "92f459ce-771d-4fcf-8265-d7a57da8497f",
+        user_id: "d4",
+        user: "Peter11",
+        user_type: "po\u015brednik",
+        offer_type: "sprzeda\u017c",
+        property_type: "dom",
+        title: "Dom na sprzeda\u017c oferta od Peter11",
+        price: 690000,
+        photos: [
+          "16.jpg",
+          "9.jpg",
+          "12.jpg",
+          "20.jpg",
+          "10.jpg",
+          "2.jpg",
+          "15.jpg",
+          "3.jpg",
+          "21.jpg",
+          "4.jpg",
+          "17.jpg",
+          "8.jpg",
+        ],
+        localization: {
+          locality: "Wroc\u0142aw",
+          district: "Mokot\u00f3w",
+          street: "ul. Lotnik\u00f3w",
+        },
+        details: {
+          space: 75,
+          rooms: 3,
+          rent: 1600,
+          market: "wt\u00f3rny",
+          availability: "8.2023",
+        },
+        description:
+          "Labore velit dolorem quisquam adipisci. Voluptatem modi magnam numquam eius est. Non dolor ut sed. Ipsum est dolor eius velit. Amet etincidunt sit labore ipsum neque. Modi adipisci non modi numquam dolore.\n\nQuiquia ipsum sit quaerat. Dolore sed tempora labore dolor voluptatem dolore tempora. Velit dolor quaerat etincidunt eius modi modi. Quisquam consectetur neque labore. Non quaerat sed ut neque quisquam.\n\nMagnam aliquam consectetur neque modi velit ut labore. Porro consectetur numquam labore magnam dolorem quisquam dolor. Neque non sit labore labore etincidunt modi. Amet porro sit sed velit sit labore consectetur. Labore aliquam tempora modi voluptatem ipsum dolor. Aliquam dolor amet dolor ut. Porro voluptatem aliquam dolor aliquam eius velit. Tempora consectetur numquam dolorem dolor. Non porro dolore ipsum.\n\nModi aliquam tempora adipisci quisquam numquam adipisci etincidunt. Dolore neque non porro. Dolorem quaerat quaerat sit. Quiquia dolorem quisquam ut quiquia magnam. Labore dolorem tempora aliquam quaerat. Neque quiquia sit eius. Sed dolorem quiquia quiquia. Velit sed quisquam consectetur ipsum. Non labore quiquia aliquam.\n\nVelit sit amet adipisci aliquam. Aliquam dolore tempora dolore eius. Aliquam quaerat tempora non magnam labore. Sit etincidunt sed quaerat neque. Ipsum adipisci aliquam magnam sed quaerat modi etincidunt. Modi est tempora quiquia voluptatem est neque non. Dolorem sit quisquam modi.\n\nSit quiquia etincidunt quiquia modi. Consectetur quaerat aliquam adipisci dolore. Est voluptatem etincidunt velit velit sit. Quiquia ipsum ut non dolor quisquam eius. Magnam non velit est non dolore ipsum. Dolor aliquam magnam labore etincidunt ut.",
+      },
       example_model: {
         title: "Mieszkanie dla ciebie",
         price: { Cena: 300000 },
@@ -171,11 +145,11 @@ export default {
   },
   methods: {
     async addItem() {
-      db.ref("users").push(this.example_model);
+      db.ref("users").push(this.offer);
       alert("aaa");
     },
     changePhoto(n) {
-      this.actualPhoto = n % this.example_model.photos.Zdjęcia.length;
+      this.actualPhoto = n % this.offer.photos.length;
     },
   },
   firebase: {

@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import Offer from "../views/Offer.vue";
-import Formulage from "../views/Formulage.vue";
+import Form from "../views/Form.vue";
 
 Vue.use(VueRouter);
 
@@ -25,8 +25,8 @@ const routes = [
   },
   {
     path: "/form",
-    name: "Formulage",
-    component: Formulage,
+    name: "Form",
+    component: Form,
   },
 ];
 
