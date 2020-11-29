@@ -1,5 +1,5 @@
 <template>
-  <div class="formulage">
+  <div class="form">
     <v-card height="100%">
       <v-card
         flat

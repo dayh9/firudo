@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import { rtdbPlugin } from "vuefire";
+import firebase from "firebase";
 
 Vue.use(rtdbPlugin);
 
@@ -14,4 +15,11 @@ new Vue({
   store,
   vuetify,
   render: (h) => h(App),
+  created() {
+    firebase.auth().onAuthStateChanged((firebaseUser) => {
+      if (firebaseUser) {
+        store.dispatch("autoSignIn", firebaseUser);
+      }
+    });
+  },
 }).$mount("#app");

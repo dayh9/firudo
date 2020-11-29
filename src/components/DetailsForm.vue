@@ -16,10 +16,8 @@
               label="Powierzchnia:"
               dense
               @input="changeHandler($event, 'space')"
+              suffix="m²"
             >
-              <template slot="append">
-                <span v-html="m2Suffix"></span>
-              </template>
             </v-text-field>
           </v-card>
         </v-col>
@@ -93,9 +91,7 @@ export default {
     details: Object,
   },
   data() {
-    return {
-      m2Suffix: "m<sup>2</sup>",
-    };
+    return {};
   },
   methods: {
     changeHandler(e, id) {
