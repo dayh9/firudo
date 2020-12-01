@@ -22,7 +22,10 @@
         >
       </v-card>
       <v-card
-        v-for="(offer, n) in filteredOffers"
+        v-for="(offer, n) in filteredOffers.slice(
+          this.page * this.range,
+          (1 + this.page) * this.range
+        )"
         :key="n"
         class="mb-3 pa-2 d-flex"
         height="200"
@@ -36,7 +39,10 @@
           rounded="sm"
           elevation="4"
           @click.native="scrollToTop"
-          :to="{ name: 'Offer', params: { offer: offer, title: offer.title } }"
+          :to="{
+            name: 'Offer',
+            params: { id: offer.id, title: offer.title },
+          }"
         >
           <v-img :src="require(`@/assets/${offer.photos[0]}`)" height="100%" />
         </v-card>
@@ -48,7 +54,10 @@
           width="50%"
           height="100%"
           @click.native="scrollToTop"
-          :to="{ name: 'Offer', params: { offer: offer, title: offer.title } }"
+          :to="{
+            name: 'Offer',
+            params: { id: offer.id, title: offer.title },
+          }"
         >
           <v-card-title class="click--text text-no-wrap">{{
             offer.title
@@ -88,18 +97,24 @@
           width="20%"
           height="100%"
         >
-          <v-card-title class="font-weight-normal accent--text">
+          <v-card-title
+            v-if="offer.offerType === 'wynajem'"
+            class="font-weight-normal accent--text"
+          >
+            {{ offer.price.toLocaleString("pl-PL") }} zł/mc
+          </v-card-title>
+          <v-card-title v-else class="font-weight-normal accent--text">
             {{ offer.price.toLocaleString("pl-PL") }} zł
           </v-card-title>
-          <v-card-subtitle
-            @click.stop="setPage(1)"
+          <!-- <v-card-subtitle
+            @click.stop="addToFav(offer.id)"
             class="font-weight-bold click--text text-no-wrap mt-auto d-flex align-end pb-0"
           >
             <v-icon large color="click" class="mb-0 mx-0"
               >mdi-home-outline</v-icon
             >
             Dodaj do ulubionych
-          </v-card-subtitle>
+          </v-card-subtitle> -->
         </v-card>
       </v-card>
       <v-card class="mb-3 py-2 d-flex align-center" flat width="100%">
@@ -130,6 +145,7 @@ export default {
   data() {
     return {
       offers: [],
+      users: [],
       page: 0,
       range: 20,
       styleCard: { border: "1px solid #5B9279" },
@@ -137,7 +153,7 @@ export default {
   },
   computed: {
     maxPage() {
-      return Math.ceil(this.offers.length / this.range - 1);
+      return Math.ceil(this.filteredOffers.length / this.range - 1);
     },
     filteredOffers() {
       return this.offers
@@ -154,6 +170,11 @@ export default {
             !offer.localization.street.match(this.localization)
           )
             return false;
+          if (
+            this.showMyOffers &&
+            !offer.user.match(this.$store.state.user.email)
+          )
+            return false;
           return true;
         })
         .sort((a, b) => {
@@ -163,8 +184,15 @@ export default {
           if (this.sortType === "od największych")
             return b.details.space - a.details.space;
           return 0;
-        })
-        .slice(this.page * this.range, (1 + this.page) * this.range);
+        });
+    },
+    showMyOffers: {
+      get() {
+        return this.$store.state.showMyOffers;
+      },
+      set(value) {
+        this.$store.commit("setShowMyOffers", value);
+      },
     },
     sortType: {
       get() {
@@ -231,10 +259,42 @@ export default {
       },
     },
   },
+  watch: {
+    showMyOffers() {
+      this.page = 0;
+    },
+    sortType() {
+      this.page = 0;
+    },
+    propertyType() {
+      this.page = 0;
+    },
+    offerType() {
+      this.page = 0;
+    },
+    priceMin() {
+      this.page = 0;
+    },
+    priceMax() {
+      this.page = 0;
+    },
+    spaceMin() {
+      this.page = 0;
+    },
+    spaceMax() {
+      this.page = 0;
+    },
+    localization() {
+      this.page = 0;
+    },
+  },
   methods: {
-    async addItem() {
-      db.ref("users").push(this.offer);
-      alert("aaa");
+    addToFav(id) {
+      const newFav = id;
+      db.ref("users")
+        .child(this.$store.state.user.email.replace(".", "_"))
+        .child("favourites")
+        .push(newFav);
     },
     changePhoto(n) {
       this.actualPhoto = n % this.offer.photos.length;
@@ -251,7 +311,7 @@ export default {
     },
   },
   firebase: {
-    users: db.ref(),
+    users: db.ref("users"),
     offers: db.ref("offers"),
   },
 };

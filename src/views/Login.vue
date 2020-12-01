@@ -69,13 +69,6 @@ export default {
     loading() {
       return this.$store.state.loading;
     },
-    // loggedListener: firebase.auth().onAuthStateChanged((firebaseUser) => {
-    //   if (firebaseUser) {
-    //     console.log(firebaseUser);
-    //   } else {
-    //     console.log("not logged in");
-    //   }
-    // }),
   },
   methods: {
     singInUser() {
@@ -84,10 +77,6 @@ export default {
           email: this.email,
           password: this.password,
         });
-        // firebase
-        //   .auth()
-        //   .signInWithEmailAndPassword(this.email, this.password)
-        //   .catch((e) => console.log(e.message));
       }
     },
     logoutUser() {

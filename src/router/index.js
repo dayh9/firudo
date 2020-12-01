@@ -15,57 +15,36 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    meta: {
-      guest: true,
-    },
   },
   {
     path: "/about",
     name: "About",
     component: About,
-    meta: {
-      guest: true,
-    },
   },
   {
-    path: "/offer/:title",
+    path: "/offer/:title/:id",
     name: "Offer",
     component: Offer,
-    meta: {
-      guest: true,
-    },
   },
   {
-    path: "/form",
+    path: "/form/:id?",
     name: "Form",
     component: Form,
-    meta: {
-      auth: true,
-    },
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
-    meta: {
-      guest: true,
-    },
   },
   {
     path: "/register",
     name: "Register",
     component: Register,
-    meta: {
-      guest: true,
-    },
   },
   {
     path: "/admin",
     name: "Admin",
     component: Admin,
-    meta: {
-      auth: true,
-    },
   },
 ];
 

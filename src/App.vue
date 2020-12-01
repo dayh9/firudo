@@ -1,7 +1,10 @@
 <template>
   <v-app>
     <v-app-bar app clipped-right clipped-left flat height="50" color="primary">
-      <v-toolbar-title class="click--text px-16 text-h4"
+      <v-app-bar-nav-icon
+        @click.stop="leftDrawer = !leftDrawer"
+      ></v-app-bar-nav-icon>
+      <v-toolbar-title class="click--text px-16 text-h4" @click="goHome"
         >FIRUDO</v-toolbar-title
       >
       <v-spacer></v-spacer>
@@ -19,9 +22,12 @@
         <v-btn @click="showLogin" text color="click">Zaloguj się</v-btn>
         <v-btn @click="showRegister" color="click" dark>Zarejestruj się</v-btn>
       </div>
+      <!-- <v-app-bar-nav-icon
+        @click.stop="rightDrawer = !rightDrawer"
+      ></v-app-bar-nav-icon> -->
     </v-app-bar>
 
-    <v-navigation-drawer app clipped left>
+    <v-navigation-drawer v-model="leftDrawer" app clipped left>
       <v-list>
         <v-list-item class="mb-n3">
           <v-list-item-content>
@@ -140,30 +146,14 @@
             </span>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
-          <v-list-item-content class="d-flex flex-row mb-n10">
-            <span class="d-flex pb-n3">
-              <v-text-field
-                class="mr-2 text-subtitle-2"
-                background-color="white"
-                solo
-                clearable
-                dense
-                label="Lokalizacja"
-                placeholder="Miasto, dzielnica lub ulica"
-                v-model="localization"
-              ></v-text-field>
-            </span>
-          </v-list-item-content>
+        <v-list-item v-if="isAuthenticated" class="mt-3 mr-2">
+          <v-btn block dark color="click" @click="changeOffers">{{
+            showMyOffers ? "Wszystkie Oferty" : "Moje Oferty"
+          }}</v-btn>
         </v-list-item>
-        <!-- <v-list-item v-for="n in 5" :key="n" link>
-          <v-list-item-content>
-            <v-list-item-title>Filtr {{ n }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item> -->
       </v-list>
     </v-navigation-drawer>
-    <v-navigation-drawer app clipped right>
+    <!-- <v-navigation-drawer v-model="rightDrawer" app clipped right>
       <v-list>
         <v-list-item v-for="n in 5" :key="n" link>
           <v-list-item-content>
@@ -171,7 +161,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
 
     <v-main>
       <router-view />
@@ -196,6 +186,10 @@ import { db } from "./db.js";
 export default {
   name: "App",
   data: () => ({
+    favs: null,
+    // showMyOffers: false,
+    leftDrawer: true,
+    rightDrawer: true,
     drawer: null,
     propertyTypes: ["mieszkanie", "dom"],
     offerTypes: ["sprzedaż", "wynajem"],
@@ -206,8 +200,23 @@ export default {
       "od największych",
     ],
   }),
+  // watch: {
+  //   loggedIn: {
+  //     // call it upon creation too
+  //     // immediate: true,
+  //     handler(loggedIn) {
+  //       if (loggedIn)
+  //         this.$rtdbBind(
+  //           "favs",
+  //           db
+  //             .ref("users")
+  //             .child(loggedIn.replace(".", "_").child("favourites"))
+  //         );
+  //     },
+  //   },
+  // },
   firebase: {
-    users: db.ref(),
+    // favourites: ,
     offers: db.ref(),
   },
   methods: {
@@ -218,7 +227,9 @@ export default {
     showLogin() {
       if (this.$route.name != "Login") this.$router.push({ name: "Login" });
     },
-
+    changeOffers() {
+      this.showMyOffers = !this.showMyOffers;
+    },
     signOutUser() {
       this.$store.dispatch("signOutUser");
       // if (this.$route.name != "Home") this.$router.push({ name: "Home" });
@@ -227,13 +238,38 @@ export default {
       window.scrollTo(0, 0);
       this.$router.push({ name: "Form" });
     },
+    goHome() {
+      if (this.$route.name != "Home") this.$router.push({ name: "Home" });
+    },
   },
+  // async created() {
+  //   db.ref(
+  //     "users/" + this.$store.state.user.email.replace(".", "_") + "/favourites"
+  //   ).once("value", (snapshot) => {
+  //     this.favs = snapshot.val();
+  //   });
+  // },
   computed: {
+    // favs() {
+    //   return db
+    //     .ref("users")
+    //     .child(this.$store.state.user.email.replace(".", "_"))
+    //     .child("favourites")
+    //     .get();
+    // },
     loggedIn() {
       return this.$store.state.user.email;
     },
     isAuthenticated() {
       return this.$store.getters.isAuthenticated;
+    },
+    showMyOffers: {
+      get() {
+        return this.$store.state.showMyOffers;
+      },
+      set(value) {
+        this.$store.commit("setShowMyOffers", value);
+      },
     },
     sortType: {
       get() {

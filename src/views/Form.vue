@@ -21,9 +21,10 @@
               filled
               class="mr-2 mb-n3"
               color="accent"
-              label="Tytył ogłoszenia:"
+              label="Tytuł ogłoszenia:"
               dense
-              v-model="formToSubmit.title"
+              type="text"
+              v-model="newOffer.title"
             ></v-text-field>
           </span>
           <span class="d-flex">
@@ -35,7 +36,8 @@
               prepend-icon="mdi-map-marker"
               label="Miejscowość:"
               dense
-              v-model="formToSubmit.localization.locality"
+              type="text"
+              v-model="newOffer.localization.locality"
             ></v-text-field>
             <v-text-field
               background-color="white"
@@ -44,7 +46,8 @@
               color="accent"
               label="Dzielnica:"
               dense
-              v-model="formToSubmit.localization.district"
+              type="text"
+              v-model="newOffer.localization.district"
             ></v-text-field>
             <v-text-field
               background-color="white"
@@ -53,7 +56,8 @@
               color="accent"
               label="Ulica:"
               dense
-              v-model="formToSubmit.localization.street"
+              type="text"
+              v-model="newOffer.localization.street"
             ></v-text-field>
           </span>
         </v-card>
@@ -73,7 +77,9 @@
               color="click"
               label="Typ nieruchomości:"
               dense
+              type="text"
               :items="propertyTypes"
+              v-model="newOffer.propertyType"
             ></v-select>
             <v-select
               background-color="white"
@@ -82,7 +88,9 @@
               color="click"
               label="Typ ogłoszenia:"
               dense
+              type="text"
               :items="offerTypes"
+              v-model="newOffer.offerType"
             ></v-select>
           </span>
           <v-text-field
@@ -92,7 +100,8 @@
             color="click"
             label="Cena:"
             dense
-            v-model="formToSubmit.price"
+            type="text"
+            v-model="newOffer.price"
             suffix="zł"
           ></v-text-field>
         </v-card>
@@ -102,9 +111,9 @@
       </v-card>
 
       <v-sheet id="scrolling-techniques-7" class="overflow-visible">
-        <GalleryForm :photos.sync="this.offer.photos" />
+        <GalleryForm :photos.sync="this.newOffer.photos" />
         <v-divider class="mx-3 secondary"></v-divider>
-        <DetailsForm :details="offer.details" @input="updateMsg" />
+        <DetailsForm :details="this.newOffer.details" @input="updateMsg" />
         <v-divider class="mx-3 secondary"></v-divider>
         <v-container class="my-0">
           <v-card
@@ -121,16 +130,34 @@
               solo
               name="description-input"
               label="Wpisz opis ogłoszenia"
-              v-model="formToSubmit.description"
+              type="text"
+              v-model="newOffer.description"
             ></v-textarea>
           </v-card>
         </v-container>
-        <!-- <Description :description="this.example_model.description" />
-        <v-divider class="mx-3 my-1 secondary"></v-divider>
-        <v-btn @click="addItem" color="click" class="ma-5" dark elevation="2"
-          >CLICK ME</v-btn
-        > -->
-        <v-container style="height: 300px"> </v-container>
+        <v-divider class="mx-3 mt-12 secondary"></v-divider>
+        <v-card flat class="px-3"
+          ><v-text-field
+            background-color="white"
+            filled
+            class="h3"
+            color="click"
+            label="Telefon kontaktowy:"
+            dense
+            type="text"
+            v-model="newOffer.phoneNumber"
+          ></v-text-field
+        ></v-card>
+
+        <v-btn
+          width="100%"
+          class="my-3"
+          @click="addOffer"
+          color="click"
+          dark
+          elevation="2"
+          >{{ this.$route.params.id ? "Zapisz Zmiany" : "Dodaj Ofertę" }}</v-btn
+        >
       </v-sheet>
     </v-card>
   </div>
@@ -138,18 +165,12 @@
 
 <script>
 import { db } from "../db.js";
-// import Gallery from "../components/Gallery.vue";
-// import Details from "../components/Details.vue";
 import DetailsForm from "../components/DetailsForm.vue";
-// import Description from "../components/Description.vue";
 import GalleryForm from "../components/GalleryForm.vue";
 
 export default {
   name: "Form",
   components: {
-    // Gallery,
-    // Details,
-    // Description,
     GalleryForm,
     DetailsForm,
   },
@@ -157,75 +178,83 @@ export default {
     return {
       propertyTypes: ["mieszkanie", "dom"],
       offerTypes: ["sprzedaż", "wynajem"],
-      formToSubmit: {
-        title: "",
+      newOffer: {
+        id: null,
+        offerType: null,
+        propertyType: null,
+        title: null,
         price: null,
+        photos: [],
         localization: {
           locality: null,
           district: null,
           street: null,
         },
-        description: "",
-      },
-      msg: {
-        // space: null,
-        // rooms: 3,
-        // rent: 1600,
-        // market: "wt\u00f3rny",
-        // availability: "8.2023",
-      },
-      offer: {
-        id: "92f459ce-771d-4fcf-8265-d7a57da8497f",
-        user_id: "d4",
-        user: "Peter11",
-        user_type: "po\u015brednik",
-        offer_type: "sprzeda\u017c",
-        property_type: "dom",
-        title: "Dom na sprzeda\u017c oferta od Peter11",
-        price: 690000,
-        photos: [
-          "16.jpg",
-          "9.jpg",
-          "12.jpg",
-          "20.jpg",
-          "10.jpg",
-          "2.jpg",
-          // "15.jpg",
-          // "3.jpg",
-          // "21.jpg",
-          // "4.jpg",
-          // "17.jpg",
-          // "8.jpg",
-        ],
-        localization: {
-          locality: "Wroc\u0142aw",
-          district: "Mokot\u00f3w",
-          street: "ul. Lotnik\u00f3w",
-        },
         details: {
-          space: 75,
-          rooms: 3,
-          rent: 1600,
-          market: "wt\u00f3rny",
-          availability: "8.2023",
+          space: null,
+          rooms: null,
+          rent: null,
+          market: null,
+          availability: null,
         },
-        description:
-          "Labore velit dolorem quisquam adipisci. Voluptatem modi magnam numquam eius est. Non dolor ut sed. Ipsum est dolor eius velit. Amet etincidunt sit labore ipsum neque. Modi adipisci non modi numquam dolore.\n\nQuiquia ipsum sit quaerat. Dolore sed tempora labore dolor voluptatem dolore tempora. Velit dolor quaerat etincidunt eius modi modi. Quisquam consectetur neque labore. Non quaerat sed ut neque quisquam.\n\nMagnam aliquam consectetur neque modi velit ut labore. Porro consectetur numquam labore magnam dolorem quisquam dolor. Neque non sit labore labore etincidunt modi. Amet porro sit sed velit sit labore consectetur. Labore aliquam tempora modi voluptatem ipsum dolor. Aliquam dolor amet dolor ut. Porro voluptatem aliquam dolor aliquam eius velit. Tempora consectetur numquam dolorem dolor. Non porro dolore ipsum.\n\nModi aliquam tempora adipisci quisquam numquam adipisci etincidunt. Dolore neque non porro. Dolorem quaerat quaerat sit. Quiquia dolorem quisquam ut quiquia magnam. Labore dolorem tempora aliquam quaerat. Neque quiquia sit eius. Sed dolorem quiquia quiquia. Velit sed quisquam consectetur ipsum. Non labore quiquia aliquam.\n\nVelit sit amet adipisci aliquam. Aliquam dolore tempora dolore eius. Aliquam quaerat tempora non magnam labore. Sit etincidunt sed quaerat neque. Ipsum adipisci aliquam magnam sed quaerat modi etincidunt. Modi est tempora quiquia voluptatem est neque non. Dolorem sit quisquam modi.\n\nSit quiquia etincidunt quiquia modi. Consectetur quaerat aliquam adipisci dolore. Est voluptatem etincidunt velit velit sit. Quiquia ipsum ut non dolor quisquam eius. Magnam non velit est non dolore ipsum. Dolor aliquam magnam labore etincidunt ut.",
+        description: null,
+        phoneNumber: null,
       },
     };
   },
+  computed: {
+    loggedIn() {
+      return this.$store.state.user.email;
+    },
+    filled() {
+      if (
+        this.newOffer.title &&
+        this.newOffer.offerType &&
+        this.newOffer.propertyType &&
+        this.newOffer.localization.locality &&
+        this.newOffer.price &&
+        this.newOffer.photos[0] &&
+        this.newOffer.phoneNumber &&
+        this.newOffer.details.space &&
+        this.newOffer.details.rooms
+      )
+        return true;
+      return false;
+    },
+  },
+  async created() {
+    if (this.$route.params.id)
+      db.ref("offers/" + this.$route.params.id).once("value", (snapshot) => {
+        this.newOffer = snapshot.val();
+      });
+  },
   methods: {
-    async addItem() {
-      db.ref("users").push(this.offer);
-      alert("aaa");
+    addOffer() {
+      if (this.filled) {
+        let newId = null;
+        if (!this.$route.params.id) {
+          this.newOffer.user = this.$store.state.user.email;
+          newId = db.ref("offers").push().getKey();
+          this.newOffer.id = newId;
+        } else {
+          newId = this.$route.params.id;
+        }
+        db.ref("offers").child(newId).set(this.newOffer);
+        alert("Dodano");
+        if (this.$route.name != "Home") this.$router.push({ name: "Home" });
+      } else {
+        alert(
+          "Wypełnij podstawowe informacje o ofercie, zdjęcia oraz tel. kontaktowy"
+        );
+      }
     },
     changePhoto(n) {
       this.actualPhoto = n % this.offer.photos.length;
     },
     updateMsg(event, id) {
-      this.msg[id] = event;
-      // console.log(id);
-      // console.log(event);
+      if (id === "space" || id === "rooms" || id === "rent")
+        this.newOffer.details[id] = Number(event);
+      else this.newOffer.details[id] = event;
     },
   },
   firebase: {

@@ -13,6 +13,7 @@ export default new Vuex.Store({
     error: null,
     loading: false,
     // filters
+    showMyOffers: false,
     sortType: "domyślnie",
     propertyType: undefined,
     offerType: undefined,
@@ -31,6 +32,9 @@ export default new Vuex.Store({
     },
     setLoading(state, payload) {
       state.loading = payload;
+    },
+    setShowMyOffers(state, payload) {
+      state.showMyOffers = payload;
     },
     setSortType(state, payload) {
       state.sortType = payload;

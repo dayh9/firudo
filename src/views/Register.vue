@@ -45,8 +45,6 @@
           :disabled="loading"
           >Sign Up</v-btn
         >
-        <!-- <v-btn @click="singInUser">Sign In</v-btn> -->
-        <!-- <v-btn @click="logoutUser">Logout</v-btn> -->
       </v-form>
     </v-card>
   </div>
@@ -102,11 +100,6 @@ export default {
   methods: {
     signUpUser() {
       if (this.$refs.form.validate()) {
-        // firebase
-        //   .auth()
-        //   .createUserWithEmailAndPassword(this.email, this.password)
-        //   .catch((e) => console.log(e.message));
-        // this.$router.push({ name: "Home" });
         this.$store.dispatch("signUpUser", {
           email: this.email,
           password: this.password,
