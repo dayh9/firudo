@@ -13,7 +13,7 @@ export default new Vuetify({
         error: "#f44336",
         warning: "#ff5722",
         info: "#f0f0f0",
-        success: "#8bc34a",
+        success: "#8bc34a"
       },
       light: {
         primary: "#8FCB9B",
@@ -23,8 +23,8 @@ export default new Vuetify({
         error: "#ff4b19",
         warning: "#F1A259",
         info: "#ECF0E8",
-        success: "#75af8a",
-      },
-    },
-  },
+        success: "#75af8a"
+      }
+    }
+  }
 });

@@ -13,8 +13,8 @@
 export default {
   name: "Description",
   props: {
-    description: String,
-  },
+    description: String
+  }
 };
 </script>
 

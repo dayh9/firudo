@@ -80,25 +80,23 @@
   </v-container>
 </template>
 
-    
 <script>
 export default {
   name: "DetailsForm",
   props: {
-    details: Object,
+    details: Object
   },
   data() {
     return {
-      marketTypes: ["pierwotny", "wtórny"],
+      marketTypes: ["pierwotny", "wtórny"]
     };
   },
   methods: {
     changeHandler(e, id) {
       this.$emit("input", e, id);
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

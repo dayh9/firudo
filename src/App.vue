@@ -153,15 +153,6 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <!-- <v-navigation-drawer v-model="rightDrawer" app clipped right>
-      <v-list>
-        <v-list-item v-for="n in 5" :key="n" link>
-          <v-list-item-content>
-            <v-list-item-title>Ulubione {{ n }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer> -->
 
     <v-main>
       <router-view />
@@ -200,23 +191,7 @@ export default {
       "od największych",
     ],
   }),
-  // watch: {
-  //   loggedIn: {
-  //     // call it upon creation too
-  //     // immediate: true,
-  //     handler(loggedIn) {
-  //       if (loggedIn)
-  //         this.$rtdbBind(
-  //           "favs",
-  //           db
-  //             .ref("users")
-  //             .child(loggedIn.replace(".", "_").child("favourites"))
-  //         );
-  //     },
-  //   },
-  // },
   firebase: {
-    // favourites: ,
     offers: db.ref(),
   },
   methods: {
@@ -236,27 +211,14 @@ export default {
     },
     goForm() {
       window.scrollTo(0, 0);
-      this.$router.push({ name: "Form" });
+      // this.$router.push({ name: "Form" });
+      if (this.$route.name != "Form") this.$router.push({ name: "Form" });
     },
     goHome() {
       if (this.$route.name != "Home") this.$router.push({ name: "Home" });
     },
   },
-  // async created() {
-  //   db.ref(
-  //     "users/" + this.$store.state.user.email.replace(".", "_") + "/favourites"
-  //   ).once("value", (snapshot) => {
-  //     this.favs = snapshot.val();
-  //   });
-  // },
   computed: {
-    // favs() {
-    //   return db
-    //     .ref("users")
-    //     .child(this.$store.state.user.email.replace(".", "_"))
-    //     .child("favourites")
-    //     .get();
-    // },
     loggedIn() {
       return this.$store.state.user.email;
     },

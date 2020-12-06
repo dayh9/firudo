@@ -87,7 +87,7 @@
 export default {
   name: "GalleryForm",
   props: {
-    photos: Array,
+    photos: Array
   },
   data() {
     return {
@@ -100,7 +100,7 @@ export default {
         // "10.jpg",
         // "2.jpg",
         // "15.jpg",
-      ],
+      ]
     };
   },
   methods: {
@@ -127,9 +127,9 @@ export default {
       // this.photosHere.splice(7, 1, event.target.files[0].name);
       // this.photosHere = this.newPhotos;
       this.photos.push(event.target.files[0].name);
-    },
+    }
   },
-  computed: {},
+  computed: {}
 };
 </script>
 

@@ -127,11 +127,11 @@
 export default {
   name: "Gallery",
   props: {
-    photos: Array,
+    photos: Array
   },
   data() {
     return {
-      bigPhotoId: 0,
+      bigPhotoId: 0
     };
   },
   methods: {
@@ -146,9 +146,9 @@ export default {
         return true;
       }
       return false;
-    },
+    }
   },
-  computed: {},
+  computed: {}
 };
 </script>
 

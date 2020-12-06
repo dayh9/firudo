@@ -64,10 +64,9 @@
 export default {
   name: "Details",
   props: {
-    details: Object,
-  },
+    details: Object
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

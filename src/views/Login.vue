@@ -51,15 +51,14 @@ export default {
       show: false,
       email: "",
       emailRules: [
-        (v) => !!v || "E-mail is required",
-        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+        v => !!v || "E-mail is required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
       ],
       password: "",
       passwordRules: [
-        (v) => !!v || "Password is required",
-        (v) =>
-          (!!v && v.length > 6) || "Password must be more than 6 characters",
-      ],
+        v => !!v || "Password is required",
+        v => (!!v && v.length > 6) || "Password must be more than 6 characters"
+      ]
     };
   },
   computed: {
@@ -68,20 +67,20 @@ export default {
     },
     loading() {
       return this.$store.state.loading;
-    },
+    }
   },
   methods: {
     singInUser() {
       if (this.$refs.form.validate()) {
         this.$store.dispatch("singInUser", {
           email: this.email,
-          password: this.password,
+          password: this.password
         });
       }
     },
     logoutUser() {
       firebase.auth().signOut();
-    },
+    }
   },
   watch: {
     error(value) {
@@ -93,7 +92,7 @@ export default {
       if (!value) {
         this.$store.commit("setError", null);
       }
-    },
-  },
+    }
+  }
 };
 </script>

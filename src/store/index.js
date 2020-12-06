@@ -8,11 +8,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     appTitle: "Firudo App",
-    // user
     user: null,
     error: null,
     loading: false,
-    // filters
     showMyOffers: false,
     sortType: "domyślnie",
     propertyType: undefined,

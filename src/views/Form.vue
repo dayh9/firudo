@@ -100,7 +100,7 @@
             color="click"
             label="Cena:"
             dense
-            type="text"
+            type="number"
             v-model="newOffer.price"
             suffix="zł"
           ></v-text-field>
@@ -172,7 +172,7 @@ export default {
   name: "Form",
   components: {
     GalleryForm,
-    DetailsForm,
+    DetailsForm
   },
   data() {
     return {
@@ -188,20 +188,21 @@ export default {
         localization: {
           locality: null,
           district: null,
-          street: null,
+          street: null
         },
         details: {
           space: null,
           rooms: null,
           rent: null,
           market: null,
-          availability: null,
+          availability: null
         },
         description: null,
-        phoneNumber: null,
-      },
+        phoneNumber: null
+      }
     };
   },
+
   computed: {
     loggedIn() {
       return this.$store.state.user.email;
@@ -220,11 +221,11 @@ export default {
       )
         return true;
       return false;
-    },
+    }
   },
   async created() {
     if (this.$route.params.id)
-      db.ref("offers/" + this.$route.params.id).once("value", (snapshot) => {
+      db.ref("offers/" + this.$route.params.id).once("value", snapshot => {
         this.newOffer = snapshot.val();
       });
   },
@@ -234,12 +235,18 @@ export default {
         let newId = null;
         if (!this.$route.params.id) {
           this.newOffer.user = this.$store.state.user.email;
-          newId = db.ref("offers").push().getKey();
+          newId = db
+            .ref("offers")
+            .push()
+            .getKey();
           this.newOffer.id = newId;
         } else {
           newId = this.$route.params.id;
         }
-        db.ref("offers").child(newId).set(this.newOffer);
+        this.newOffer.price = Number(this.newOffer.price);
+        db.ref("offers")
+          .child(newId)
+          .set(this.newOffer);
         alert("Dodano");
         if (this.$route.name != "Home") this.$router.push({ name: "Home" });
       } else {
@@ -255,12 +262,12 @@ export default {
       if (id === "space" || id === "rooms" || id === "rent")
         this.newOffer.details[id] = Number(event);
       else this.newOffer.details[id] = event;
-    },
+    }
   },
   firebase: {
     users: db.ref(),
-    offers: db.ref(),
-  },
+    offers: db.ref()
+  }
 };
 </script>
 

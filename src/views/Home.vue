@@ -11,7 +11,9 @@
           ><v-icon>mdi-arrow-left-bold-hexagon-outline</v-icon></v-btn
         >
         <v-spacer></v-spacer>
-        <v-btn dark text color="click">{{ page + 1 }}</v-btn>
+        <v-btn dark text color="click" @click="setPage(-maxPage)">{{
+          page + 1
+        }}</v-btn>
         <span class="click--text text-h4"> / </span>
         <v-btn dark text color="click" @click="setPage(maxPage)">{{
           maxPage + 1
@@ -289,13 +291,13 @@ export default {
     },
   },
   methods: {
-    addToFav(id) {
-      const newFav = id;
-      db.ref("users")
-        .child(this.$store.state.user.email.replace(".", "_"))
-        .child("favourites")
-        .push(newFav);
-    },
+    // addToFav(id) {
+    //   const newFav = id;
+    //   db.ref("users")
+    //     .child(this.$store.state.user.email.replace(".", "_"))
+    //     .child("favourites")
+    //     .push(newFav);
+    // },
     changePhoto(n) {
       this.actualPhoto = n % this.offer.photos.length;
     },
@@ -306,12 +308,13 @@ export default {
       if ((n < 0 && this.page > 0) || (n > 0 && this.page < this.maxPage)) {
         this.page += n;
         if (this.page > this.maxPage) this.page = this.maxPage;
+        if (this.page < 0) this.page = 0;
         window.scrollTo(0, 0);
       }
     },
   },
   firebase: {
-    users: db.ref("users"),
+    // users: db.ref("users"),
     offers: db.ref("offers"),
   },
 };

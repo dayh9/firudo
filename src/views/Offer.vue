@@ -85,22 +85,23 @@ export default {
   components: {
     Gallery,
     Details,
-    Description,
+    Description
   },
   data() {
     return {
-      offer: null,
+      offer: null
     };
   },
   async created() {
-    db.ref("offers/" + this.$route.params.id).once("value", (snapshot) => {
+    db.ref("offers/" + this.$route.params.id).once("value", snapshot => {
       this.offer = snapshot.val();
     });
   },
   computed: {
     owner() {
+      if (!this.$store.state.user) return false;
       return this.$store.state.user.email === this.offer.user;
-    },
+    }
     // offer() {
     //   return db
     //     .ref("offers/" + this.$route.params.id)
@@ -118,7 +119,9 @@ export default {
     },
     deleteOffer() {
       if (confirm("Do you really want to delete?")) {
-        db.ref("offers").child(this.offer.id).remove();
+        db.ref("offers")
+          .child(this.offer.id)
+          .remove();
         alert("Usunięto");
         if (this.$route.name != "Home") this.$router.push({ name: "Home" });
       }
@@ -128,9 +131,9 @@ export default {
         if (this.$route.name != "Form")
           this.$router.push({ name: "Form", params: { id: this.offer.id } });
       }
-    },
+    }
   },
-  firebase: {},
+  firebase: {}
 };
 </script>
 
